@@ -3,106 +3,100 @@
 # Project: CSP Passion Project
 # Date: 2023
 
-# DISCLAIMER: Work in progress, 
-# TODO:
-# - Implement random prime selection
-# - Fix pubkeygen and privkeygen
-
-# Segments like check_composite were inspired by AI
+# DISCLAIMER: This implementations follows RSA and is not a custom algorithm. And neither is the miller-rabin test.
 
 
-import math
 import random
-class rsa:
-    def is_prime(n, k=5):
-        if n <= 1:
-            return False
-        if n <= 3:
-            return True
+import math
 
-        def check_composite(a, d, n, s):
-            x = pow(a, d, n)
-            if x == 1 or x == n - 1:
-                return False
-            for _ in range(s - 1):
-                x = pow(x, 2, n)
-                if x == n - 1:
-                    return False
-            return True
-
-        r, d = 0, n - 1
-        while d % 2 == 0:
-            r += 1
-            d //= 2
-
-        for _ in range(k):
-            a = random.randint(2, n - 2)
-            if check_composite(a, d, n, r):
-                return False
+# Test whether or not number is prime
+def is_prime(n, k=5):
+    if n <= 1:
+        return False
+    if n <= 3:
         return True
+    # Miler-Rabin primality test algorithm
+    def miller_rabin(n, d):
+        a = random.randint(2, n - 2)
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            return True
+        for _ in range(r - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                return True
+        return False
 
-    def genprime(n):
-        while True:
-            p = random.getrandbits(n)
-            if is_prime(p):
-                return p
+  
+    # Compute r = n - 1
+    r, d = 0, n - 1
+    while d % 2 == 0:
+        r += 1
+        d //= 2
 
-    def mod_inverse(a, m):
-        m0, x0, x1 = m, 0, 1
-        while a > 1:
-            q = a // m
-            m, a = a % m, m
-            x0, x1 = x1 - q * x0, x0
-        if x1 < 0:
-            x1 += m0
-        return x1
+    # If it does not pass the miller rabin test, it is not prime. Else it is prime
+    for _ in range(k):
+        if not miller_rabin(n, d):
+            return False
+    return True
 
-    def rsa():
-        text = input("Enter plaintext: ")
-        n = 1024  
-        P = genprime(n)
-        Q = genprime(n)
-        key = P * Q
-        phi = (P - 1) * (Q - 1)
+# Generate RSA bits (if p is a prime number)
+def generate_prime(bits):
+    while True:
+        p = random.getrandbits(bits)
+        if p % 2 == 0:
+            p += 1
+        if is_prime(p):
+            return p
 
-        e = 65537
-        if math.gcd(e, phi) != 1:
-            return
+# Modular inverse must exist for decryption
+def mod_inverse(a, m):
+    g, x, y = extended_gcd(a, m)
+    if g != 1:
+        raise ValueError("DNE: Modular inverse does not exist")
+    return x % m
 
-        d = mod_inverse(e, phi)
+def extended_gcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, x, y = extended_gcd(b % a, a)
+        return (g, y - (b // a) * x, x)
 
-        num = ""
-        for char in text:
-            num += str(ord(char))
-        num = int(num)
+# Main rsa keygen algorithm
+def rsa_keygen(bits=2048):
+    p = generate_prime(bits)
+    q = generate_prime(bits)
+    n = p * q
+    phi = (p - 1) * (q - 1)
+    e = 65537
+    d = mod_inverse(e, phi)
+    return (n, e), (n, d)
 
-        pubkey = pow(num, e, key)
-        decrypted = pow(pubkey, d, key)
+# Encrypt with public key
+def rsa_encrypt(public_key, plaintext):
+    n, e = public_key
+    cipher = pow(plaintext, e, n)
+    return cipher
 
-        print(f"Public Key (e, key): ({e}, {key})")
-        print(f"Private Key (d, key): ({d}, {key})")
-        print(f"Encrypted: {pubkey}")
-        print(f"Decrypted: {decrypted}")
-    def encryption(text):
-        n = 1024  
-        P = genprime(n)
-        Q = genprime(n)
-        key = P * Q
-        phi = (P - 1) * (Q - 1)
+# Decrypt with private key
+def rsa_decrypt(private_key, ciphertext):
+    n, d = private_key
+    plaintext = pow(ciphertext, d, n)
+    return plaintext
 
-        e = 65537
-        if math.gcd(e, phi) != 1:
-            return
+if __name__ == "__main__":
+    public_key, private_key = rsa_keygen(bits=2048)
+    plaintext = input("Enter plaintext: ")
+    plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
 
-        d = mod_inverse(e, phi)
+    ciphertext = rsa_encrypt(public_key, plaintext)
+    decrypted = rsa_decrypt(private_key, ciphertext)
 
-        num = ""
-        for char in text:
-            num += str(ord(char))
-        num = int(num)
+    decrypted_text = decrypted.to_bytes((decrypted.bit_length() + 7) // 8, byteorder='big').decode()
 
-        pubkey = pow(num, e, key)
-        decrypted = pow(pubkey, d, key)
-        return pubkey
-    # if __name__ == "__main__":
-    #     rsa()
+    print(f"Public Key (n, e): "+str(public_key))
+    print(f"Private Key (n, d): "+str(private_key))
+    print(f"Encrypted: "+str(ciphertext))
+    print(f"Decrypted: "+str(decrypted_text))
+
