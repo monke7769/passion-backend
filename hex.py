@@ -1,5 +1,5 @@
 # By: Shuban Pal
-# Algorithm: Caesar
+# Algorithm: Hexadecimal
 # Project: CSP Passion Project
 # Date: 2023
 
