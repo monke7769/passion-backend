@@ -1,11 +1,10 @@
 # imports and object oriented programming
 import pandas as pd
-# from rsa import rsa
+from rsa import RSA
 from caesar import caesar
 from substitution import substitution
 from binary import binary
 import random
-# from rsa import rsa
 from hex import hexadecimal
 # This program will create data for training an ai to classify a cipher, whcih will then be used to decrypt the message
 
@@ -44,11 +43,11 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
         new_row=[[cea.encrypt(),'ceaser']]
         writer.writerows(new_row)
         
-    # for i in range(ciphers['rsa']):
-    #     writer = csv.writer(file)
-    #     rsaobject=rsa()
-    #     new_row=[[ciphers['rsa'][i],'rsa']]
-    #     writer.writerows(new_row)
+    for i in range(len(ciphers['rsa'])):
+        writer = csv.writer(file)
+        rsaobject=RSA()
+        new_row=[[rsaobject.rsa_encrypt(ciphers['rsa'][i]),'rsa']]
+        writer.writerows(new_row)
         
     for i in range(len(ciphers['binary'])):
         bin=binary(ciphers['binary'][i])
@@ -68,3 +67,4 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
         writer = csv.writer(file)
         new_row=[[hexa.encrypt(),'hexadecimal']]
         writer.writerows(new_row)
+    
