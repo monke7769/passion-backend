@@ -9,12 +9,12 @@ class binary:
   def encrypt(self): # Main encryption algorithm
     encrypted=""
     for character in self.text: # iterating throughe ach character and binary encoding
-        encrypted+=bin(ord(character))[2:]+"0"*8+"2" #adding encryption plus 8 zeroes at the end as a seperator since 127 is highest ascii table value and that in binary is 1111111 so no actual character can have 8 zeroes
+        encrypted+=bin(ord(character))[2:]+"0"*8+"2" #adding encryption plus 8 zeroes at the end as a seperator since 127 is highest ascii table value and that in binary is 1111111 so no actual character can have 8 zeroes with 2 at the end for distction of character
     return encrypted # return encrypted text
   
   def decrypt(self,encrypted): # binay decryption
     decrypted = ""
-    characters = encrypted.split('0' * 8+'2') # splitting by the seperator
+    characters = encrypted.split('0' * 8+'2') # splitting by the seperator 
     for char in characters:
         if(char!=''):
             decimal_value = int(char, 2) # base 2 to base 10
