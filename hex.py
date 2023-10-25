@@ -6,7 +6,6 @@
 import binascii
 
 class hexadecimal:
-  global key
   def __init__(self, text):
     self.text = text
   def encrypt(enc): # Main encryption algorithm
