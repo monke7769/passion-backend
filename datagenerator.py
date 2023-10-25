@@ -1,11 +1,12 @@
 # imports and object oriented programming
 import pandas as pd
-from rsa import rsa
+# from rsa import rsa
 from caesar import caesar
 from substitution import substitution
 from binary import binary
 import random
-from rsa import rsa
+# from rsa import rsa
+from hex import hexadecimal
 # This program will create data for training an ai to classify a cipher, whcih will then be used to decrypt the message
 
 # data formatting and splitting into division for creating dataset for each cipher
@@ -36,34 +37,34 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
     writer.writerows(new_row)
     
     # looping through each cipher text and adding encoded text/cipher name for trainig classification of the cipher
-    for i in range(ciphers['ceaser']):
+    for i in range(len(ciphers['ceaser'])):
         writer = csv.writer(file)
         val=random.randint(1,26)
         cea=caesar(val,ciphers['ceaser'][i])
         new_row=[[cea.encrypt(),'ceaser']]
         writer.writerows(new_row)
         
-    for i in range(ciphers['rsa']):
-        writer = csv.writer(file)
-        rsaobject=rsa()
-        new_row=[[ciphers['rsa'][i],'rsa']]
-        writer.writerows(new_row)
+    # for i in range(ciphers['rsa']):
+    #     writer = csv.writer(file)
+    #     rsaobject=rsa()
+    #     new_row=[[ciphers['rsa'][i],'rsa']]
+    #     writer.writerows(new_row)
         
-    for i in range(ciphers['binary']):
+    for i in range(len(ciphers['binary'])):
         bin=binary(ciphers['binary'][i])
         writer = csv.writer(file)
         new_row=[[bin.encrypt(),'binary']]
         writer.writerows(new_row)
         
-    for i in range(ciphers['substitution']):
+    for i in range(len(ciphers['substitution'])):
         val=random.randint(1,26)
         sub=substitution(val,ciphers['substitution'][i] )
         writer = csv.writer(file)
         new_row=[[sub.encrypt(),'substitution']]
         writer.writerows(new_row)
         
-    for i in range(ciphers['hexadecimal']):
-        
+    for i in range(len(ciphers['hexadecimal'])):
+        hexa= hexadecimal(ciphers['hexadecimal'][i])
         writer = csv.writer(file)
-        new_row=[[ciphers['hexadecimal'][i],'hexadecimal']]
+        new_row=[[hexa.encrypt(),'hexadecimal']]
         writer.writerows(new_row)
