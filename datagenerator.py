@@ -3,6 +3,9 @@ import pandas as pd
 from rsa import rsa
 from caesar import caesar
 from substitution import substitution
+from binary import binary
+import random
+from rsa import rsa
 # This program will create data for training an ai to classify a cipher, whcih will then be used to decrypt the message
 
 # data formatting and splitting into division for creating dataset for each cipher
@@ -35,17 +38,32 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
     # looping through each cipher text and adding encoded text/cipher name for trainig classification of the cipher
     for i in range(ciphers['ceaser']):
         writer = csv.writer(file)
-        new_row=[[ciphers['ceaser'][i],'ceaser']]
+        val=random.randint(1,26)
+        cea=caesar(val,ciphers['ceaser'][i])
+        new_row=[[cea.encrypt(),'ceaser']]
         writer.writerows(new_row)
+        
     for i in range(ciphers['rsa']):
         writer = csv.writer(file)
+        rsaobject=rsa()
         new_row=[[ciphers['rsa'][i],'rsa']]
         writer.writerows(new_row)
+        
     for i in range(ciphers['binary']):
+        bin=binary(ciphers['binary'][i])
         writer = csv.writer(file)
-        new_row=[[ciphers['binary'][i],'binary']]
+        new_row=[[bin.encrypt(),'binary']]
         writer.writerows(new_row)
+        
     for i in range(ciphers['substitution']):
+        val=random.randint(1,26)
+        sub=substitution(val,ciphers['substitution'][i] )
         writer = csv.writer(file)
-        new_row=[[ciphers['substitution'][i],'substitution']]
+        new_row=[[sub.encrypt(),'substitution']]
+        writer.writerows(new_row)
+        
+    for i in range(ciphers['hexadecimal']):
+        
+        writer = csv.writer(file)
+        new_row=[[ciphers['hexadecimal'][i],'hexadecimal']]
         writer.writerows(new_row)
