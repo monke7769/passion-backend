@@ -10,6 +10,7 @@ import random
 import math
 
 # Test whether or not number is prime
+class rsa:
 def is_prime(n, k=5):
     if n <= 1:
         return False
