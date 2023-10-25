@@ -25,9 +25,10 @@ for i in range(len(df['Text'])):
         index+=1
     if(index>4):
         break
+print(len(ciphers['rsa']))
 
 import csv
-
+print(len(ciphers['ceaser']))
 new_row = [["Text","Cipher"]]
 
 with open('data.csv', 'a', newline='') as file: # doing a csv write of all of the text,cipher stuff
@@ -36,35 +37,38 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
     writer.writerows(new_row)
     
     # looping through each cipher text and adding encoded text/cipher name for trainig classification of the cipher
+    print("thing")
     for i in range(len(ciphers['ceaser'])):
-        writer = csv.writer(file)
+        
         val=random.randint(1,26)
         cea=caesar(val,ciphers['ceaser'][i])
         new_row=[[cea.encrypt(),'ceaser']]
-        writer.writerows(new_row)
-        
+        writer.writerows(new_row)   
+    
     for i in range(len(ciphers['rsa'])):
-        writer = csv.writer(file)
-        rsaobject=RSA()
-        new_row=[[rsaobject.rsa_encrypt(ciphers['rsa'][i]),'rsa']]
+        
+        rsaobject = RSA(bits=2048)
+        plaintext = ciphers['rsa'][i]
+        plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
+        new_row=[[rsaobject.rsa_encrypt(plaintext),'rsa']]
         writer.writerows(new_row)
         
     for i in range(len(ciphers['binary'])):
         bin=binary(ciphers['binary'][i])
-        writer = csv.writer(file)
+        
         new_row=[[bin.encrypt(),'binary']]
         writer.writerows(new_row)
         
     for i in range(len(ciphers['substitution'])):
         val=random.randint(1,26)
         sub=substitution(val,ciphers['substitution'][i] )
-        writer = csv.writer(file)
+        
         new_row=[[sub.encrypt(),'substitution']]
         writer.writerows(new_row)
         
     for i in range(len(ciphers['hexadecimal'])):
         hexa= hexadecimal(ciphers['hexadecimal'][i])
-        writer = csv.writer(file)
+        
         new_row=[[hexa.encrypt(),'hexadecimal']]
         writer.writerows(new_row)
     

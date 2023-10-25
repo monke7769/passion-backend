@@ -86,7 +86,7 @@ class RSA:
 
 if __name__ == "__main__":
     rsa = RSA(bits=2048)
-    plaintext = input("Enter plaintext: ")
+    plaintext = "thing"
     plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
 
     ciphertext = rsa.rsa_encrypt(plaintext)
