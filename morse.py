@@ -1,3 +1,7 @@
+# By: Shuban Pal
+# Algorithm: Morse Code
+# Project: CSP Passion Project
+# Date: 2023
 class morse:
   def __init__(self, text):
     self.text = text
