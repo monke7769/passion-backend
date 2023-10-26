@@ -6,6 +6,7 @@ from substitution import substitution
 from binary import binary
 import random
 from hex import hexadecimal
+from morse import morse
 # This program will create data for training an ai to classify a cipher, whcih will then be used to decrypt the message
 
 # data formatting and splitting into division for creating dataset for each cipher
@@ -14,8 +15,8 @@ df=pd.read_csv('Emotion_final.csv') # reading from a public database I imported 
 divisions=[]
 # ciphers ceaser, rsa, vinegar, binary, hexadecimal
 # print(len(df['Text']))
-ciphers={'ceaser':[],'rsa':[],'binary':[],'hexadecimal':[],'substitution':[]} # dictionary that will contain all of the text
-names=['ceaser','rsa','substitution','hexadecimal','binary'] # name of each cipher
+ciphers={'ceaser':[],'morse':[],'binary':[],'hexadecimal':[],'substitution':[]} # dictionary that will contain all of the text
+names=['ceaser','morse','substitution','hexadecimal','binary'] # name of each cipher
 index=-1
 
 # going through all text and assigning to a cipher
@@ -25,7 +26,7 @@ for i in range(len(df['Text'])):
         index+=1
     if(index>4):
         break
-print(len(ciphers['rsa']))
+print(len(ciphers['morse']))
 
 import csv
 print(len(ciphers['ceaser']))
@@ -43,19 +44,16 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
         val=random.randint(1,26)
         cea=caesar(val,ciphers['ceaser'][i])
         new_row=[[cea.encrypt(),'ceaser']]
-        writer.writerows(new_row)   
+        # print(new_row,ciphers['ceaser'][i])
+        writer.writerows(new_row) 
     
-    for i in range(len(ciphers['rsa'])):
-        
-        rsaobject = RSA(bits=2048)
-        plaintext = ciphers['rsa'][i]
-        plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
-        new_row=[[rsaobject.rsa_encrypt(plaintext),'rsa']]
+    for i in range(len(ciphers['morse'])):
+        morseobject = morse(ciphers['morse'][i])
+        new_row=[[morseobject.encrypt(),'morse']]
         writer.writerows(new_row)
         
     for i in range(len(ciphers['binary'])):
         bin=binary(ciphers['binary'][i])
-        
         new_row=[[bin.encrypt(),'binary']]
         writer.writerows(new_row)
         
@@ -71,4 +69,6 @@ with open('data.csv', 'a', newline='') as file: # doing a csv write of all of th
         
         new_row=[[hexa.encrypt(),'hexadecimal']]
         writer.writerows(new_row)
+    
+    
     

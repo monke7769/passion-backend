@@ -9,7 +9,7 @@ import random
 
 class RSA:
     def __init__(self, bits=2048):
-        self.bits = bits
+        self.bits = bits   
         self.public_key, self.private_key = self.rsa_keygen(bits)
 
     @staticmethod
@@ -84,17 +84,17 @@ class RSA:
         plaintext = pow(ciphertext, d, n)
         return plaintext
 
-if __name__ == "__main__":
-    rsa = RSA(bits=2048)
-    plaintext = "thing"
-    plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
+# if __name__ == "__main__":
+#     rsa = RSA(bits=2048)
+#     plaintext = "thing"
+#     plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
 
-    ciphertext = rsa.rsa_encrypt(plaintext)
-    decrypted = rsa.rsa_decrypt(ciphertext)
+#     ciphertext = rsa.rsa_encrypt(plaintext)
+#     decrypted = rsa.rsa_decrypt(ciphertext)
 
-    decrypted_text = decrypted.to_bytes((decrypted.bit_length() + 7) // 8, byteorder='big').decode()
+#     decrypted_text = decrypted.to_bytes((decrypted.bit_length() + 7) // 8, byteorder='big').decode()
 
-    print(f"Public Key (n, e): {rsa.public_key}")
-    print(f"Private Key (n, d): {rsa.private_key}")
-    print(f"Encrypted: {ciphertext}")
-    print(f"Decrypted: {decrypted_text}")
+#     print(f"Public Key (n, e): {rsa.public_key}")
+#     print(f"Private Key (n, d): {rsa.private_key}")
+#     print(f"Encrypted: {ciphertext}")
+#     print(f"Decrypted: {decrypted_text}")
