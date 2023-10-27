@@ -8,6 +8,7 @@ import numpy as np
 from sklearn.svm import SVC # Support Vector Machine
 from sklearn.ensemble import RandomForestClassifier # Random Forest
 import keras
+import joblib
 class ai:
     def __init__(self,filename):
         self.data=pd.read_csv(filename) # reading input in
@@ -38,7 +39,7 @@ class ai:
         ])
         model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
         self.model = model
-        self.model.fit(self.X_train, self.Y_train, epochs=1, validation_split=0.2)
+        self.model.fit(self.X_train, self.Y_train, epochs=5, validation_split=0.2)
         # Y_pred =self.model.predict(self.X_test) # predicting the testing model data
         # Y_train_pred=self.model.predict(self.X_train)
         # Accuracy for testing and training to check overfit and underfit
@@ -68,5 +69,4 @@ class ai:
         
         
     
-
 

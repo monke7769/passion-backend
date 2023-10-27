@@ -7,4 +7,3 @@ airunner.export()
 airunner.evaluate()
 # filename = 'finalized_model.sav'
 # pickle.dump(airunner.clf, open(filename, 'wb'))
-
