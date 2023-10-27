@@ -33,5 +33,6 @@ class aiprediction:
         X_new = vectorizer.transform([text]).toarray()
         Ypred = self.loaded_model.predict(X_new)
         Ypfinal = np.argmax(Ypred, axis=1) # predicting it and taking the highest possibility of each output
-
+        
         print("The cipher is", self.ciphers[int(Ypfinal[0])],"cipher")
+        return self.ciphers[int(Ypfinal[0])]
