@@ -15,7 +15,7 @@ class aiprediction:
         self.loaded_model = model_from_json(loaded_model_json)
 
         # Load the model weights from the HDF5 file
-        self.loaded_model.load_weights("model.h5")
+        self.loaded_model.load_weights("model1.h5")
 
         self.loaded_model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     def pred(self,text):
