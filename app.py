@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, url_quote
+from urllib.parse import quote as url_quote
 import subprocess
 import os
 from caesar import caesar as c1 # first cipher
