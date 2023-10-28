@@ -1,6 +1,13 @@
 version: '3'
 services:
-  myapp:
-    build: .
-    ports:
-      - "8686:8686"
+        web:
+                image: flask_port_v1
+                environment:
+                        - CRYPTO_KEY=${CRYPTO_KEY}
+                build: .
+                ports:
+                        - "8686:8686"
+                volumes:
+                        - ./volumes:/volumes
+                        - ./instance:/instance
+                restart: unless-stopped
