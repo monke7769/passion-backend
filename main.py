@@ -6,8 +6,21 @@ from flask import render_template  # import render_template from "public" flask 
 # import "packages" from "this" project
 from __init__ import app,db  # Definitions initialization
 
+
+from flask import Flask, render_template, request, jsonify
+from urllib.parse import quote as url_quote
+import subprocess
+import os
+from caesar import caesar as c1 # first cipher
+from substitution import substitution as c2 # second cipher
+from generate import generate as gn
+
+
+app = Flask(__name__)
+
+
 # Initialize the SQLAlchemy object to work with the Flask app instance
-db.init_app(app)
+# db.init_app(app)
 
 @app.errorhandler(404)  # catch for URL not found
 def page_not_found(e):
@@ -34,7 +47,8 @@ def submit():
 
 # this runs the application on the development server
 if __name__ == "__main__":
+    
     # change name for testing
     from flask_cors import CORS
     cors = CORS(app)
-    app.run(debug=True, host="0.0.0.0", port="8686")
+    app.run(debug=True, host="0.0.0.0", port="8080")

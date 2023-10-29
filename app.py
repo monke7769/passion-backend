@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    print("CHECKPOINT")
     # Construct the absolute path to the Markdown file
     return render_template('index.html')
 
