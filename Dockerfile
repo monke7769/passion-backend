@@ -1,20 +1,22 @@
-# Use an official Python runtime as the base image
-FROM python:3.9
+FROM docker.io/python:3.10
 
-# Set the working directory in the container
-WORKDIR /app
+WORKDIR /
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# --- [Install python and pip] ---
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y python3 python3-pip git
+COPY . /
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install gunicorn
 
+ENV GUNICORN_CMD_ARGS="--workers=1 --bind=0.0.0.0:8686"
+
+<<<<<<< HEAD
 # Make port 8686 available to the world outside this container
 EXPOSE 8080
+=======
+EXPOSE 8686
+>>>>>>> refs/remotes/origin/main
 
-# Define environment variable
-ENV NAME World
-
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD [ "gunicorn", "main:app" ]
