@@ -6,7 +6,7 @@ from flask import render_template  # import render_template from "public" flask 
 from flask_cors import CORS
 # import "packages" from "this" project
 from __init__ import app,db  # Definitions initialization
-
+from rsa import RSA
 
 from flask import Flask, render_template, request, jsonify
 from urllib.parse import quote as url_quote
@@ -15,8 +15,9 @@ import os
 from caesar import caesar as c1 # first cipher
 from substitution import substitution as c2 # second cipher
 from generate import generate as gn
-
-
+from morse import morse
+from binary import binary
+from hex import hexadecimal
 app = Flask(__name__)
 CORS(app)
 
@@ -46,9 +47,56 @@ def caesarencrypt():
     cipher1=c1(int(value),text)
     encrypted = cipher1.encrypt()
     print(encrypted)
-    return jsonify("Encrypted Values: "+str(encrypted))
+    return jsonify(str(encrypted))
 
-# this runs the application on the development server
+@app.route("/morseencrypt", methods=["POST"])
+def morseencrypt():
+    text = request.json.get("text")
+    morseobject = morse(text)
+    encrypted = morseobject.encrypt()
+    print(encrypted)
+    return jsonify(str(encrypted))
+
+@app.route("/binaryencrypt", methods=["POST"])
+def binaryencrypt():
+    text = request.json.get("text")
+    bin=binary(text)
+    encrypted = bin.encrypt()
+    print(encrypted)
+    return jsonify(str(encrypted))
+
+@app.route("/hexencrypt", methods=["POST"])
+def hexencrypt():
+    text = request.json.get("text")
+    hex=hexadecimal(text)
+    encrypted=hex.encrypt()
+    print(encrypted)
+    return jsonify(str(encrypted))
+
+@app.route("/subencrypt", methods=["POST"])
+def subencrypt():
+    text = request.json.get("text")
+    gen=gn()
+    value=gen.getrandom(1)[0]
+    sub=subencrypt(value,text)
+    encrypted = sub.encrypt()
+    print(encrypted)
+    return jsonify(str(encrypted))
+
+def rsa():
+    text = request.json.get("text")
+    rsaobj=RSA()
+    rsa = RSA(bits=2048)
+    plaintext = text
+    plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
+
+    ciphertext = rsa.rsa_encrypt(plaintext)
+    
+    print(ciphertext)
+    
+    return jsonify(str(ciphertext))
+
+
 if __name__ == "__main__":
     
     # change name for testing
