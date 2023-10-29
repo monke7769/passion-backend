@@ -37,8 +37,8 @@ def index():
 def table():
     return render_template("table.html")
 
-@app.route("/submit", methods=["POST"])
-def submit():
+@app.route("/caesarencrypt", methods=["POST"])
+def caesarencrypt():
     text = request.json.get("text")
     print(text)
     gen=gn()
