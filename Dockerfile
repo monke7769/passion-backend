@@ -10,13 +10,9 @@ COPY . /
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install gunicorn
 
-ENV GUNICORN_CMD_ARGS="--workers=1 --bind=0.0.0.0:8686"
+ENV GUNICORN_CMD_ARGS="--workers=1 --bind=0.0.0.0:8080"
 
-<<<<<<< HEAD
-# Make port 8686 available to the world outside this container
+# Make port 8080 available to the world outside this container
 EXPOSE 8080
-=======
-EXPOSE 8686
->>>>>>> refs/remotes/origin/main
 
 CMD [ "gunicorn", "main:app" ]

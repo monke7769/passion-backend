@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, url_quote
+from flask import Flask, render_template, request, jsonify
 from urllib.parse import quote as url_quote
 import subprocess
 import os
@@ -24,6 +24,8 @@ def submit():
     print(encrypted)
     
     return jsonify("Encrypted Values: "+str(encrypted))
+
+
 
 if __name__ == "__main__":
      app.run(debug=True)
