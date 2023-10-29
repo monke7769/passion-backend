@@ -3,6 +3,7 @@ import threading
 # import "packages" from flask
 from flask import render_template  # import render_template from "public" flask libraries
 
+from flask_cors import CORS
 # import "packages" from "this" project
 from __init__ import app,db  # Definitions initialization
 
@@ -17,6 +18,7 @@ from generate import generate as gn
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Initialize the SQLAlchemy object to work with the Flask app instance
