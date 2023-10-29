@@ -44,6 +44,7 @@ def submit():
     cipher1=c1(int(value),text)
     encrypted = cipher1.encrypt()
     print(encrypted)
+    return jsonify("Encrypted Values: "+str(encrypted))
 
 # this runs the application on the development server
 if __name__ == "__main__":
