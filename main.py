@@ -83,11 +83,14 @@ def subencrypt():
     encrypted = sub.encrypt()
     print(encrypted)
     return jsonify(str(encrypted))
+
 @app.route("/rsaencrypt", methods=["POST"])
 def rsa():
     text = request.json.get("text")
+    print('here')
     rsaobj=RSA()
     rsa = RSA(bits=2048)
+    print("Created Object")
     plaintext = text
     plaintext = int.from_bytes(plaintext.encode(), byteorder='big')
 
@@ -102,6 +105,7 @@ def decrypt():
     text = request.json.get("text")
     predictor=aiprediction()
     value=predictor.pred(text)
+
     return jsonify(str(value))
 
 
