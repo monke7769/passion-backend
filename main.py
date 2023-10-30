@@ -18,6 +18,7 @@ from generate import generate as gn
 from morse import morse
 from binary import binary
 from hex import hexadecimal
+from aiprediction import aiprediction
 app = Flask(__name__)
 CORS(app)
 
@@ -82,7 +83,7 @@ def subencrypt():
     encrypted = sub.encrypt()
     print(encrypted)
     return jsonify(str(encrypted))
-
+@app.route("/rsaencrypt", methods=["POST"])
 def rsa():
     text = request.json.get("text")
     rsaobj=RSA()
@@ -95,6 +96,13 @@ def rsa():
     print(ciphertext)
     
     return jsonify(str(ciphertext))
+
+@app.route("/decrypt", methods=["POST"])
+def decrypt():
+    text = request.json.get("text")
+    predictor=aiprediction()
+    value=predictor.pred(text)
+    return jsonify(str(value))
 
 
 if __name__ == "__main__":
