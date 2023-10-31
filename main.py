@@ -103,26 +103,35 @@ def rsa():
 @app.route("/decrypt", methods=["POST"])
 def decrypt():
     text = request.json.get("text")
+    output=""
     predictor=aiprediction()
     value=predictor.pred(text)
     eng=aienglishprediction()
-    possible_keys = range(1, 25)
-    for key in possible_keys:
-        if value == "caesar":
-            value = caesar(key, text)
-        elif value == "morse":
-            value = morse(key, text)
-        elif value == "substitution":
-            value = substitution(key, text)
-        elif value == "hex":
-            value = hex(key, text)
-        if eng.predict(value.decrypt(text) == 0:
-            return decrypted_text
-    if(value=="ceaser"):
-        for i in range(1,27):
-            cease=c1(0,text)
-            if(eng.predict(cease.decrypt(i))==0):
-                value=cease.decrypt(i)
+    if(value=="binary"):
+        object=binary(text)
+        output=object.decrypt()
+    elif(value=="hexadecimal"):
+        object=hexadecimal(text)
+        output= object.decrypt()
+    elif(value=="morse"):
+        object=morse(text)
+        output= object.decrypt()
+    else:  
+        for key in range(1,27):
+            eng=aienglishprediction()
+            objecter=c1(0,text)
+            if value == "caesar":
+                objecter = c1(key, text)
+            elif value == "substitution":
+                objecter = c2(key, text)
+            if eng.predict(objecter.decrypt(text)) == 0:
+                output= objecter.decrypt(text)
+    return jsonify(str(output))
+    # if(value=="ceaser"):
+    #     for i in range(1,27):
+    #         cease=c1(0,text)
+    #         if(eng.predict(cease.decrypt(i))==0):
+    #             value=cease.decrypt(i)
     
     return jsonify(str(value))
 

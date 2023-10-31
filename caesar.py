@@ -19,7 +19,7 @@ class caesar:
         ct += char # Append the encrypted char into ciphertext
     return ct
   
-  def decrypt(dec, keyval):  # Main decryption algorithm
+  def decrypt(dec):  # Main decryption algorithm
     pt = ""
     print(keyval, "------")  # Print the current key value
     for i in range(0, len(dec.text)):
@@ -28,7 +28,7 @@ class caesar:
           pt+=' '
           continue
         shift = 97 if char.islower() else 65  # Same shift as encryption to corresponding case unicode
-        pt += chr((ord(char) - shift - keyval) % 26 + shift)  # Subtract from the key to reverse to the original state
+        pt += chr((ord(char) - shift - key) % 26 + shift)  # Subtract from the key to reverse to the original state
     return pt
 
   
