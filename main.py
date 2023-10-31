@@ -106,6 +106,18 @@ def decrypt():
     predictor=aiprediction()
     value=predictor.pred(text)
     eng=aienglishprediction()
+    possible_keys = range(1, 25)
+    for key in possible_keys:
+        if value == "caesar":
+            value = caesar(key, text)
+        elif value == "morse":
+            value = morse(key, text)
+        elif value == "substitution":
+            value = substitution(key, text)
+        elif value == "hex":
+            value = hex(key, text)
+        if eng.predict(value.decrypt(text) == 0:
+            return decrypted_text
     if(value=="ceaser"):
         for i in range(1,27):
             cease=c1(0,text)
