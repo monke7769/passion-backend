@@ -117,7 +117,7 @@ def decrypt():
         object=morse(text)
         output= object.decrypt()
     else:  
-        for key in range(1,27):
+        for key in range(1,25):
             eng=aienglishprediction()
             objecter=c1(key,text)
             print(value)
