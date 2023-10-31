@@ -27,14 +27,15 @@ def decrypt(text):
     else:  
         for key in range(1,27):
             eng=aienglishprediction()
-            objecter=c1(0,text)
-            if value == "caesar":
+            objecter=c1(key,text)
+            print(value)
+            if value == "ceasar":
                 objecter = c1(key, text)
             elif value == "substitution":
                 objecter = c2(key, text)
-            if eng.predict(objecter.decrypt(text)) == 0:
-                output= objecter.decrypt(text)
+            if eng.predict(objecter.decrypt()) == 0:
+                output= objecter.decrypt()
     return output
 
-thing=decrypt('.. / .-. . .- .-.. .-.. .-.. -.-- / .-.. --- ...- . / - --- / -.-. --- -.. . / ... .. -. -.-. . / .. - / .. -. ...- --- .-.. ...- . ... / ... --- / -- .- -. -.-- / -.-. --- --- .-.. / - .... .. -. --. ...')
+thing=decrypt('L uhdooob oryh wr frgh vlqfh lw lqyroyhv vr pdqb frro wklqjv')
 print(thing)

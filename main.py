@@ -119,13 +119,14 @@ def decrypt():
     else:  
         for key in range(1,27):
             eng=aienglishprediction()
-            objecter=c1(0,text)
-            if value == "caesar":
+            objecter=c1(key,text)
+            print(value)
+            if value == "ceasar":
                 objecter = c1(key, text)
             elif value == "substitution":
                 objecter = c2(key, text)
-            if eng.predict(objecter.decrypt(text)) == 0:
-                output= objecter.decrypt(text)
+            if eng.predict(objecter.decrypt()) == 0:
+                output= objecter.decrypt()
     return jsonify(str(output))
     # if(value=="ceaser"):
     #     for i in range(1,27):
