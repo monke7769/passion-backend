@@ -128,13 +128,6 @@ def decrypt():
             if eng.predict(objecter.decrypt()) == 0: # decrypting and seeing if it's close to english
                 output= objecter.decrypt()
     return jsonify(str(output)) # returning the output
-    # if(value=="ceaser"):
-    #     for i in range(1,27):
-    #         cease=c1(0,text)
-    #         if(eng.predict(cease.decrypt(i))==0):
-    #             value=cease.decrypt(i)
-    
-    return jsonify(str(value))
 
 
 if __name__ == "__main__":
