@@ -2,7 +2,7 @@ import threading
 
 # import "packages" from flask
 from flask import render_template  # import render_template from "public" flask libraries
-
+from aienglishprediction import aienglishprediction
 from flask_cors import CORS
 # import "packages" from "this" project
 from __init__ import app,db  # Definitions initialization
@@ -105,7 +105,13 @@ def decrypt():
     text = request.json.get("text")
     predictor=aiprediction()
     value=predictor.pred(text)
-
+    eng=aienglishprediction()
+    if(value=="ceaser"):
+        for i in range(1,27):
+            cease=c1(0,text)
+            if(eng.predict(cease.decrypt(i))==0):
+                value=cease.decrypt(i)
+    
     return jsonify(str(value))
 
 

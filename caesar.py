@@ -19,15 +19,20 @@ class caesar:
         ct += char # Append the encrypted char into ciphertext
     return ct
   
-  def decrypt(dec): # Main decryption algorithm
-    pt=""
-    for i in range(0,len(dec.text)):
-      char = dec.text[i]
-      shift = 97 if char.islower() else 65 # Same shift as encryption to corresponding case unicode
-      dec.text+=chr((ord(char) - shift - dec.key)%26 + shift) # Subtract from key this time to reverse to original state
-    else:
-      pt += char # Append decrypted char into plaintext
+  def decrypt(dec, keyval):  # Main decryption algorithm
+    pt = ""
+    print(keyval, "------")  # Print the current key value
+    for i in range(0, len(dec.text)):
+        char = dec.text[i]
+        if(char==' '):
+          pt+=' '
+          continue
+        shift = 97 if char.islower() else 65  # Same shift as encryption to corresponding case unicode
+        pt += chr((ord(char) - shift - keyval) % 26 + shift)  # Subtract from the key to reverse to the original state
     return pt
+
+  
+      
 
 mycipher = caesar(3,"Hello World") # Test case: Encrypt string "Hello World" with key of 3
 print(mycipher.encrypt())

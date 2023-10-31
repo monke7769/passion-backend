@@ -18,9 +18,9 @@ class aienglish:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2, random_state=42)
 
         # TF-IDF vectorization
-        tfidf_vectorizer = TfidfVectorizer()
-        self.X_train_tfidf = tfidf_vectorizer.fit_transform(self.X_train)
-        self.X_test_tfidf = tfidf_vectorizer.transform(self.X_test)
+        self.tfidf_vectorizer = TfidfVectorizer()
+        self.X_train_tfidf = self.tfidf_vectorizer.fit_transform(self.X_train)
+        self.X_test_tfidf = self.tfidf_vectorizer.transform(self.X_test)
     def train(self):
     # Train a Logistic Regression model
         self.model = LogisticRegression()

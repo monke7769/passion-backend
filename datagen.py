@@ -17,4 +17,9 @@ with open('datatrainisenglish.csv', 'a', newline='') as file:
     for i in Texts:
         new_row = [i, '1']
         writer.writerow(new_row)
-    
+        
+    df2=pd.read_csv('tweet_emotions.csv')
+    Texts=list(df2['content'])
+    for i in Texts:
+        new_row = [i, '0']
+        writer.writerow(new_row)
