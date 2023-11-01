@@ -83,7 +83,7 @@ class RSA:
         n, d = self.private_key  # Access private_key as an instance attribute
         plaintext = pow(ciphertext, d, n)
         return plaintext
-
+# GCD: Tells if number as prime as for prime, GCD is equal to 1
 # if __name__ == "__main__":
 #     rsa = RSA(bits=2048)
 #     plaintext = "thing"
