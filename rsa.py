@@ -84,6 +84,7 @@ class RSA:
         plaintext = pow(ciphertext, d, n)
         return plaintext
 # GCD: Tells if number as prime as for prime, GCD is equal to 1
+# NOTICE: Following code is commented out for AI testing! Find the full rsa at 
 # if __name__ == "__main__":
 #     rsa = RSA(bits=2048)
 #     plaintext = "thing"
