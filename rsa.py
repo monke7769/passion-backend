@@ -42,7 +42,7 @@ class RSA:
         return True
 
     @staticmethod
-    def generate_prime(bits):
+    def generate_prime(bits): # Generate random bits and keep generating till prime number is returned
         while True:
             p = random.getrandbits(bits)
             if p % 2 == 0:
@@ -53,7 +53,7 @@ class RSA:
     @staticmethod
     def mod_inverse(a, m):
         g, x, y = RSA.extended_gcd(a, m)  # Might be slow
-        if g != 1:
+        if g != 1: # All primes have a gcd of 1
             raise ValueError("DNE: Modular inverse does not exist")
         return x % m
 
